@@ -6,14 +6,12 @@ services:
     plan: starter
     region: oregon
     
-    # Updated build command for pnpm 10
+    # Use npm to match the existing package-lock.json in this repo
     buildCommand: |
-      corepack enable
-      corepack prepare pnpm@latest --activate
-      pnpm install
-      pnpm build
-    
-    startCommand: pnpm start
+      npm ci
+      npm run build
+
+    startCommand: npm run start
     
     envVars:
       - key: NODE_ENV
@@ -45,7 +43,7 @@ services:
         - src/**
         - public/**
         - package.json
-        - pnpm-lock.yaml
+        - package-lock.json
         - next.config.js
         - tsconfig.json
         - tailwind.config.ts
