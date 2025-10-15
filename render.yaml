@@ -1,0 +1,19 @@
+# Render service spec for this Next.js app
+# Edit `name` and `env` as needed when creating the service on Render
+services:
+  - type: web
+    name: iemrfsite1
+    env: node
+    plan: starter
+    region: oregon
+    buildCommand: pnpm install --frozen-lockfile && pnpm build
+    startCommand: pnpm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        scope: private
+    autoDeploy: true
+    pullRequestPreviews: false
+    # You can optionally set the branch to deploy from
+    branch: main
