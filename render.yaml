@@ -1,19 +1,52 @@
 # Render service spec for this Next.js app
-# Edit `name` and `env` as needed when creating the service on Render
 services:
   - type: web
     name: iemrfsite1
     env: node
     plan: starter
     region: oregon
-    buildCommand: pnpm install --frozen-lockfile && pnpm build
+
+    # Build settings
+    buildCommand: |
+      npm install -g pnpm@8
+      pnpm install
+      pnpm build
+
+    # Start command for Next.js
     startCommand: pnpm start
+
+    # Environment variables
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        scope: private
+      - key: NODE_VERSION
+        value: 18.x
+      - key: PNPM_VERSION
+        value: 8.x
+
+    # Health check path
+    healthCheckPath: /
+
+    # Auto-deploy settings
     autoDeploy: true
     pullRequestPreviews: false
-    # You can optionally set the branch to deploy from
+
+    # Branch settings
     branch: main
+
+    # Advanced settings
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
+
+    # Build filters (optional)
+    buildFilter:
+      paths:
+        - src/**
+        - public/**
+        - package.json
+        - pnpm-lock.yaml
+        - next.config.js
+        - tsconfig.json
+        - tailwind.config.ts
