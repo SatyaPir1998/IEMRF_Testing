@@ -6,7 +6,10 @@ services:
     env: node
     plan: starter
     region: oregon
-    buildCommand: pnpm install --frozen-lockfile && pnpm build
+    buildCommand: |
+      npm install -g pnpm@8
+      pnpm install
+      pnpm build
     startCommand: pnpm start
     envVars:
       - key: NODE_ENV
